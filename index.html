@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administración de Lavandería</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Gestión de Pedidos - Lavandería</h1>
+    <form id="pedidoForm">
+        <label>Nombre:</label>
+        <input type="text" id="nombre" required>
+        
+        <label>Número de Teléfono:</label>
+        <input type="tel" id="telefono" required>
+        
+        <label>Producto:</label>
+        <input type="text" id="producto" required>
+        
+        <label>Estado:</label>
+        <select id="estado">
+            <option value="En proceso">En proceso</option>
+            <option value="Listo para retirar">Listo para retirar</option>
+        </select>
+        
+        <label>Estado de Pago:</label>
+        <select id="pago">
+            <option value="Pagado">Pagado</option>
+            <option value="Con deuda">Con deuda</option>
+        </select>
+
+        <button type="submit">Guardar Pedido</button>
+    </form>
+
+    <h2>Búsqueda de Pedidos</h2>
+    <input type="text" id="busqueda" placeholder="Buscar por nombre o teléfono">
+    <button id="buscar">Buscar</button>
+
+    <div id="resultados"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
