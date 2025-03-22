@@ -51,7 +51,12 @@ function saveToGoogleSheets(order) {
             'Content-Type': 'application/json'
         }
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Error en la respuesta del servidor');
+        }
+        return response.json();
+    })
     .then(data => {
         alert('Pedido registrado con éxito');
     })
