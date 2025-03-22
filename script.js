@@ -38,10 +38,10 @@ function getPickupDate() {
 }
 
 function saveToGoogleSheets(order) {
-    const sheetId = 'TU_ID_DE_HOJA_DE_GOOGLE';  // Reemplázalo con tu ID de hoja de Google Sheets
+    const sheetId = '1Al6Cvrxv0kskG5vmC744zdnEU6BWXsoHdqAIzK_FIE4';  // Reemplázalo con tu ID de hoja de Google Sheets
     const sheetName = 'Pedidos';  // El nombre de la hoja dentro de Google Sheets
 
-    const url = `https://script.google.com/macros/s/TU_SCRIPT_ID/exec?name=${order.name}&phone=${order.phone}&product=${order.product}&entryDate=${order.entryDate}&pickupDate=${order.pickupDate}&status=${order.status}&paidStatus=${order.paidStatus}&sheetId=${sheetId}&sheetName=${sheetName}`;
+    const url = `https://script.google.com/macros/s/AKfycbxKmTKftU_XAffWlqxjIXOq-j3DGWZHpas1fp5-5g-VN3Euhu2A7ebPoWOJIDI3mMzLcw/exec?name=${order.name}&phone=${order.phone}&product=${order.product}&entryDate=${order.entryDate}&pickupDate=${order.pickupDate}&status=${order.status}&paidStatus=${order.paidStatus}&sheetId=${sheetId}&sheetName=${sheetName}`;
 
     fetch(url)
         .then(response => response.json())
