@@ -38,24 +38,30 @@ function getPickupDate() {
 }
 
 function saveToGoogleSheets(order) {
-    const sheetId = '1Al6Cvrxv0kskG5vmC744zdnEU6BWXsoHdqAIzK_FIE4';  // Reemplázalo con tu ID de hoja de Google Sheets
-    const sheetName = 'Pedidos';  // El nombre de la hoja dentro de Google Sheets
+    const sheetId = '1Al6Cvrxv0kskG5vmC744zdnEU6BWXsoHdqAIzK_FIE4';  // ID de la hoja de Google Sheets
+    const sheetName = 'Pedidos';  // Nombre de la hoja dentro de Google Sheets
 
+    // URL de tu Web App de Google Apps Script
     const url = `https://script.google.com/macros/s/AKfycbxKmTKftU_XAffWlqxjIXOq-j3DGWZHpas1fp5-5g-VN3Euhu2A7ebPoWOJIDI3mMzLcw/exec?name=${order.name}&phone=${order.phone}&product=${order.product}&entryDate=${order.entryDate}&pickupDate=${order.pickupDate}&status=${order.status}&paidStatus=${order.paidStatus}&sheetId=${sheetId}&sheetName=${sheetName}`;
 
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            alert('Pedido registrado con éxito');
-        })
-        .catch(error => {
-            console.error('Error al registrar el pedido:', error);
-            alert('Hubo un problema al registrar el pedido');
-        });
+    fetch(url, {
+        method: 'GET',
+        mode: 'no-cors',  // Usamos 'no-cors' para evitar CORS si no tenemos un servidor intermedio
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert('Pedido registrado con éxito');
+    })
+    .catch(error => {
+        console.error('Error al registrar el pedido:', error);
+        alert('Hubo un problema al registrar el pedido');
+    });
 }
 
 function searchOrders() {
     const query = document.getElementById('searchQuery').value;
-    // Aquí puedes implementar la lógica de búsqueda
+    // Aquí puedes implementar la lógica de búsqueda si lo necesitas
 }
-
