@@ -1,38 +1,30 @@
-document.getElementById("pedidoForm").addEventListener("submit", async function (e) {
-    e.preventDefault();
+function doPost(e) {
+    const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    const data = JSON.parse(e.postData.contents);
 
-    const nombre = document.getElementById("nombre").value;
-    const telefono = document.getElementById("telefono").value;
-    const producto = document.getElementById("producto").value;
-    const estado = document.getElementById("estado").value;
-    const pago = document.getElementById("pago").value;
-    
-    // Calcula las fechas (evitando domingos)
-    const fechaIngreso = new Date();
-    let fechaRetiro = new Date();
-    fechaRetiro.setDate(fechaIngreso.getDate() + 2);
-    if (fechaRetiro.getDay() === 0) fechaRetiro.setDate(fechaRetiro.getDate() + 1);
+    sheet.appendRow([
+        data.nombre,
+        data.telefono,
+        data.producto,
+        data.estado,
+        data.pago,
+        data.fechaIngreso,
+        data.fechaRetiro
+    ]);
 
-    // Enviar datos a Google Sheets
-    const response = await fetch('https://script.google.com/macros/s/AKfycbxKmTKftU_XAffWlqxjIXOq-j3DGWZHpas1fp5-5g-VN3Euhu2A7ebPoWOJIDI3mMzLcw/exec', {
-        method: "POST",
-        body: JSON.stringify({
-            nombre,
-            telefono,
-            producto,
-            estado,
-            pago,
-            fechaIngreso: fechaIngreso.toISOString().split('T')[0],
-            fechaRetiro: fechaRetiro.toISOString().split('T')[0],
-        }),
-        headers: {
-            "Content-Type": "application/json",
-        },
-    });
+    return ContentService.createTextOutput(JSON.stringify({ success: true }))
+        .setMimeType(ContentService.MimeType.JSON)
+        .setHeader("Access-Control-Allow-Origin", "*")
+        .setHeader("Access-Control-Allow-Methods", "POST, OPTIONS")
+        .setHeader("Access-Control-Allow-Headers", "Content-Type");
+}
 
-    if (response.ok) {
-        alert("Pedido guardado exitosamente.");
-    } else {
-        alert("Error al guardar el pedido.");
-    }
-});
+function doGet() {
+    // Manejar solicitudes de preflight
+    return ContentService.createTextOutput("")
+        .setMimeType(ContentService.MimeType.JSON)
+        .setHeader("Access-Control-Allow-Origin", "*")
+        .setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+        .setHeader("Access-Control-Allow-Headers", "Content-Type");
+}
+
